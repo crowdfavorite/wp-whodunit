@@ -11,6 +11,11 @@ Author URI: http://crowdfavorite.com/
 class cf_whodunit {
 	static function on_shutdown() {
 		global $wpdb;
+		
+		if (defined( 'DOING_AJAX' ) && DOING_AJAX == true) {
+			return;
+		}
+		
 		$used_db_servers = array();
 		if (!empty($wpdb->used_servers)) { // HyperDB configuration
 			foreach ($wpdb->used_servers as $server) {
